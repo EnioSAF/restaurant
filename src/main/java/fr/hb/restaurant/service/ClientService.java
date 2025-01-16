@@ -9,8 +9,8 @@ import java.util.List;
 @Service
 public class ClientService {
     private final List<Client> clients = new ArrayList<>(List.of(
-        new Client(1, "Doe", "John", "john.doe@gmail.com", "0612345678", "H", "normal"),
-        new Client(2, "Smith", "Jane", "jane.smith@gmail.com", "0612345679", "F", "vip")
+        new Client(1, "SadFlower", "Enio", "enio.sadflower@gmail.com", "0612345678", "Homme", "normal"),
+        new Client(2, "MACRON", "Brigitte", "brigitte.macron@gmail.com", "0612345679", "Femme", "vip")
     ));
 
     public List<Client> findAll() {
