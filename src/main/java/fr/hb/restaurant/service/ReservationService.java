@@ -1,6 +1,9 @@
 package fr.hb.restaurant.service;
 
 import fr.hb.restaurant.model.Reservation;
+import fr.hb.restaurant.model.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,9 +13,11 @@ import java.util.List;
 @Service
 public class ReservationService {
     private final List<Reservation> reservations = new ArrayList<>(List.of(
-        new Reservation(1, 1, 1, LocalDateTime.now().plusDays(1), 4),
-        new Reservation(2, 2, 2, LocalDateTime.now().plusDays(2), 2)
-    ));
+            new Reservation(1, 1, 1, LocalDateTime.now().plusDays(1), 4),
+            new Reservation(2, 2, 2, LocalDateTime.now().plusDays(2), 2)));
+
+    @Autowired
+    private TableService tableService;
 
     public List<Reservation> findAll() {
         return reservations;
@@ -25,7 +30,17 @@ public class ReservationService {
                 .orElse(null);
     }
 
-    public void save(Reservation reservation) {
+    public String save(Reservation reservation) {
+        // Vérification de la contrainte
+        Table table = tableService.findById(reservation.getTableId());
+        if (table == null) {
+            return "La table sélectionnée n'existe pas.";
+        }
+        if (reservation.getNbPersonnes() > table.getNbPlaces()) {
+            return "Le nombre de personnes dépasse le nombre de places disponibles pour cette table.";
+        }
+
+        // Sauvegarde de la réservation
         if (reservation.getId() == 0) {
             int newId = reservations.stream()
                     .mapToInt(Reservation::getId)
@@ -42,6 +57,8 @@ public class ReservationService {
                 existing.setNbPersonnes(reservation.getNbPersonnes());
             }
         }
+
+        return null; // Pas d'erreur
     }
 
     public void delete(int id) {

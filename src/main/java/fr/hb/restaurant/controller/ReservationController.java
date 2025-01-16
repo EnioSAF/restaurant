@@ -31,10 +31,16 @@ public class ReservationController {
     @PostMapping("/add")
     public String addReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("reservation", reservation);
             return "reservations/form";
         }
-        reservationService.save(reservation);
+
+        // Vérification de la contrainte
+        String errorMessage = reservationService.save(reservation);
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+            return "reservations/form";
+        }
+
         return "redirect:/reservations";
     }
 
@@ -51,10 +57,16 @@ public class ReservationController {
     @PostMapping("/edit")
     public String editReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("reservation", reservation);
             return "reservations/form";
         }
-        reservationService.save(reservation);
+
+        // Vérification de la contrainte
+        String errorMessage = reservationService.save(reservation);
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+            return "reservations/form";
+        }
+
         return "redirect:/reservations";
     }
 

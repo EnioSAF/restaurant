@@ -14,6 +14,8 @@
         <h1
             th:text="${reservation.id != null} ? #{action.edit} + ' ' + #{menu.reservations} : #{action.add} + ' ' + #{menu.reservations}">
             Formulaire Réservation</h1>
+        <!-- Affichage des messages d'erreur -->
+        <div class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
         <form th:action="@{/reservations/add}" th:object="${reservation}" method="post">
             <!-- Champ caché pour l'ID -->
             <input type="hidden" th:field="*{id}" />
