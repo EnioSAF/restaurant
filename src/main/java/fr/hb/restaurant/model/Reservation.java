@@ -2,11 +2,18 @@ package fr.hb.restaurant.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class Reservation {
     private int id;
+    @NotNull(message = "L'ID de la table est obligatoire")
     private int tableId;
+    @NotNull(message = "L'ID du client est obligatoire")
     private int clientId;
+    @NotNull(message = "La date et l'heure sont obligatoires")
     private LocalDateTime dateHeure;
+    @Min(value = 1, message = "Le nombre de personnes doit être au moins 1")
     private int nbPersonnes;
 
     public Reservation() {

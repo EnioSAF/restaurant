@@ -1,8 +1,14 @@
 package fr.hb.restaurant.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class Table {
     private int id;
+
+    @Min(value = 1, message = "Le nombre de places doit être au moins 1")
     private int nbPlaces;
+    @NotBlank(message = "Le statut est obligatoire")
     private String statut;
 
     public Table() {

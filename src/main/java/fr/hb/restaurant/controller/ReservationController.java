@@ -2,9 +2,11 @@ package fr.hb.restaurant.controller;
 
 import fr.hb.restaurant.model.Reservation;
 import fr.hb.restaurant.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -27,7 +29,11 @@ public class ReservationController {
     }
 
     @PostMapping("/add")
-    public String addReservation(@ModelAttribute Reservation reservation) {
+    public String addReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("reservation", reservation);
+            return "add-reservation";
+        }
         reservationService.save(reservation);
         return "redirect:/reservations";
     }
@@ -43,7 +49,11 @@ public class ReservationController {
     }
 
     @PostMapping("/edit")
-    public String editReservation(@ModelAttribute Reservation reservation) {
+    public String editReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("reservation", reservation);
+            return "edit-reservation";
+        }
         reservationService.save(reservation);
         return "redirect:/reservations";
     }

@@ -2,9 +2,11 @@ package fr.hb.restaurant.controller;
 
 import fr.hb.restaurant.model.Client;
 import fr.hb.restaurant.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -27,7 +29,11 @@ public class ClientController {
     }
 
     @PostMapping("/add")
-    public String addClient(@ModelAttribute Client client) {
+    public String addClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("client", client);
+            return "add-client";
+        }
         clientService.save(client);
         return "redirect:/clients";
     }
@@ -43,7 +49,11 @@ public class ClientController {
     }
 
     @PostMapping("/edit")
-    public String editClient(@ModelAttribute Client client) {
+    public String editClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("client", client);
+            return "edit-client";
+        }
         clientService.save(client);
         return "redirect:/clients";
     }

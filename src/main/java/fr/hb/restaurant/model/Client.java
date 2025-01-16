@@ -1,12 +1,23 @@
 package fr.hb.restaurant.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class Client {
     private int id;
+
+    @NotBlank(message = "Le nom est obligatoire")
     private String nom;
+    @NotBlank(message = "Le prénom est obligatoire")
     private String prenom;
+    @Email(message = "Email invalide")
     private String email;
+    @Pattern(regexp = "\\d{10}", message = "Le téléphone doit contenir 10 chiffres")
     private String telephone;
+    @NotBlank(message = "Le genre est obligatoire")
     private String genre;
+    @NotBlank(message = "Le niveau est obligatoire")
     private String niveau;
 
     public Client() {
