@@ -9,10 +9,9 @@ import java.util.List;
 @Service
 public class TableService {
     private final List<Table> tables = new ArrayList<>(List.of(
-        new Table(1, 4, "disponible"),
-        new Table(2, 6, "reservée"),
-        new Table(3, 2, "en entretien")
-    ));
+            new Table(1, 4, "disponible"),
+            new Table(2, 6, "reservée"),
+            new Table(3, 2, "en entretien")));
 
     public List<Table> findAll() {
         return tables;
