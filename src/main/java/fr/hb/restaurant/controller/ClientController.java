@@ -25,13 +25,14 @@ public class ClientController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("client", new Client());
+        model.addAttribute("action", "add");
         return "clients/form";
     }
 
     @PostMapping("/add")
     public String addClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("client", client);
+            model.addAttribute("action", "add");
             return "clients/form";
         }
         clientService.save(client);
@@ -43,6 +44,7 @@ public class ClientController {
         Client client = clientService.findById(id);
         if (client != null) {
             model.addAttribute("client", client);
+            model.addAttribute("action", "edit");
             return "clients/form";
         }
         return "redirect:/clients";
@@ -51,7 +53,7 @@ public class ClientController {
     @PostMapping("/edit")
     public String editClient(@ModelAttribute @Valid Client client, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("client", client);
+            model.addAttribute("action", "edit");
             return "clients/form";
         }
         clientService.save(client);

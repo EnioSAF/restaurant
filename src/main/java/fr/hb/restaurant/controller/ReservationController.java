@@ -25,12 +25,14 @@ public class ReservationController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("reservation", new Reservation());
+        model.addAttribute("action", "add");
         return "reservations/form";
     }
 
     @PostMapping("/add")
     public String addReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("action", "add");
             return "reservations/form";
         }
 
@@ -38,9 +40,9 @@ public class ReservationController {
         String errorMessage = reservationService.save(reservation);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("action", "add");
             return "reservations/form";
         }
-
         return "redirect:/reservations";
     }
 
@@ -49,6 +51,7 @@ public class ReservationController {
         Reservation reservation = reservationService.findById(id);
         if (reservation != null) {
             model.addAttribute("reservation", reservation);
+            model.addAttribute("action", "edit");
             return "reservations/form";
         }
         return "redirect:/reservations";
@@ -57,13 +60,14 @@ public class ReservationController {
     @PostMapping("/edit")
     public String editReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("action", "edit");
             return "reservations/form";
         }
 
-        // Vérification de la contrainte
         String errorMessage = reservationService.save(reservation);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("action", "edit");
             return "reservations/form";
         }
 
