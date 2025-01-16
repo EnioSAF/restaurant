@@ -24,7 +24,8 @@ public class ClientController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("client", new Client());
+        Client client = new Client();
+        model.addAttribute("client", client);
         model.addAttribute("action", "add");
         return "clients/form";
     }

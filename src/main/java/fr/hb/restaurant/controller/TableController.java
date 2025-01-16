@@ -24,7 +24,8 @@ public class TableController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("table", new Table());
+        Table table = new Table();
+        model.addAttribute("table", table);
         model.addAttribute("action", "add");
         return "tables/form";
     }

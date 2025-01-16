@@ -24,7 +24,8 @@ public class ReservationController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("reservation", new Reservation());
+        Reservation reservation = new Reservation();
+        model.addAttribute("reservation", reservation);
         model.addAttribute("action", "add");
         return "reservations/form";
     }
