@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{menu.clients}">Clients</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div th:insert="~{fragments/menu :: menu}"></div>
+    <div class="container mt-4">
+        <h1 th:text="#{menu.clients}">Clients</h1>
+        <a th:href="@{/clients/add}" class="btn btn-primary mb-3" th:text="#{action.add} + ' ' + #{menu.clients}"></a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th th:text="#{clients.id}">ID</th>
+                    <th th:text="#{clients.name}">Nom</th>
+                    <th th:text="#{clients.firstname}">Prénom</th>
+                    <th th:text="#{clients.email}">Email</th>
+                    <th th:text="#{clients.telephone}">Téléphone</th>
+                    <th th:text="#{clients.gender}">Genre</th>
+                    <th th:text="#{clients.level}">Niveau</th>
+                    <th th:text="#{action.actions}">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.id}"></td>
+                    <td th:text="${client.nom}"></td>
+                    <td th:text="${client.prenom}"></td>
+                    <td th:text="${client.email}"></td>
+                    <td th:text="${client.telephone}"></td>
+                    <td th:text="${client.genre}"></td>
+                    <td th:text="${client.niveau}"></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/clients/edit/{id}(id=${client.id})}"
+                            th:text="#{action.edit}"></a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/clients/delete/{id}(id=${client.id})}"
+                            th:text="#{action.delete}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
