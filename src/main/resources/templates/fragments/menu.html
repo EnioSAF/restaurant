@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="menu">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}" th:text="#{app.title}">Restaurant</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tables}" th:text="#{menu.tables}">Tables</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/clients}" th:text="#{menu.clients}">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/reservations}" th:text="#{menu.reservations}">Réservations</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="?lang=fr">FR</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?lang=en">EN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

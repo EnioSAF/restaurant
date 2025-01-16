@@ -18,17 +18,15 @@ public class AccueilController {
 
     @GetMapping("/")
     public String getAccueil(Model model) {
-        // Compter le nombre de tables disponibles
         long tablesDisponibles = tableService.findAll().stream()
                 .filter(table -> "disponible".equalsIgnoreCase(table.getStatut()))
                 .count();
 
-        // Récupérer les réservations du jour
         var reservationsDuJour = reservationService.findAll().stream()
                 .filter(reservation -> reservation.getDateHeure().toLocalDate().equals(java.time.LocalDate.now()))
                 .toList();
 
-        // Ajouter les données au modèle
+        model.addAttribute("pageTitle", "Accueil");
         model.addAttribute("tablesDisponibles", tablesDisponibles);
         model.addAttribute("reservationsDuJour", reservationsDuJour);
 
