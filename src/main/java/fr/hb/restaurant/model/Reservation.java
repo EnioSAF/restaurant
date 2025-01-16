@@ -1,6 +1,7 @@
 package fr.hb.restaurant.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -97,5 +98,13 @@ public class Reservation {
      */
     public void setNbPersonnes(int nbPersonnes) {
         this.nbPersonnes = nbPersonnes;
+    }
+
+    // Formate la date et l'heure pour être compatible avec Thymeleaf
+    public String getFormattedDateHeure() {
+        if (this.dateHeure == null)
+            return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dateHeure.format(formatter);
     }
 }

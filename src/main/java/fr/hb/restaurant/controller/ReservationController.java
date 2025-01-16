@@ -19,20 +19,20 @@ public class ReservationController {
     @GetMapping
     public String getAllReservations(Model model) {
         model.addAttribute("reservations", reservationService.findAll());
-        return "reservations";
+        return "reservations/list";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("reservation", new Reservation());
-        return "add-reservation";
+        return "reservations/form";
     }
 
     @PostMapping("/add")
     public String addReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("reservation", reservation);
-            return "add-reservation";
+            return "reservations/form";
         }
         reservationService.save(reservation);
         return "redirect:/reservations";
@@ -43,7 +43,7 @@ public class ReservationController {
         Reservation reservation = reservationService.findById(id);
         if (reservation != null) {
             model.addAttribute("reservation", reservation);
-            return "edit-reservation";
+            return "reservations/form";
         }
         return "redirect:/reservations";
     }
@@ -52,7 +52,7 @@ public class ReservationController {
     public String editReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("reservation", reservation);
-            return "edit-reservation";
+            return "reservations/form";
         }
         reservationService.save(reservation);
         return "redirect:/reservations";
