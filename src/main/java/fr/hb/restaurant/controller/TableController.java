@@ -19,20 +19,20 @@ public class TableController {
     @GetMapping
     public String getAllTables(Model model) {
         model.addAttribute("tables", tableService.findAll());
-        return "tables";
+        return "tables/list";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("table", new Table());
-        return "add-table";
+        return "tables/form";
     }
 
     @PostMapping("/add")
     public String addTable(@ModelAttribute @Valid Table table, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("table", table);
-            return "add-table";
+            return "tables/form";
         }
         tableService.save(table);
         return "redirect:/tables";
@@ -43,7 +43,7 @@ public class TableController {
         Table table = tableService.findById(id);
         if (table != null) {
             model.addAttribute("table", table);
-            return "edit-table";
+            return "tables/form";
         }
         return "redirect:/tables";
     }
@@ -52,7 +52,7 @@ public class TableController {
     public String editTable(@ModelAttribute @Valid Table table, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("table", table);
-            return "edit-table";
+            return "tables/form";
         }
         tableService.save(table);
         return "redirect:/tables";
